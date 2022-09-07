@@ -17,7 +17,7 @@ The project deploys Apache Airflow for automating and orchestrating Sparkify Dat
 to perform tasks such as creating tables, staging the data from S3 bucket `s3://udacity-dend/song-data` and 
 `s3://udacity-dend/log-data`, filling the data warehouse, and running checks on the data as the final steps. 
 
-The Python script repository takes care all the imports and provides five empty operators that need to be implemented 
+The Python scripts take care all the imports and provides five empty operators that need to be implemented 
 into functional pieces of a data pipeline.
 
 ## Database design in STAR schema
