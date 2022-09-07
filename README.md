@@ -15,10 +15,10 @@ users listen to.
 ## Description
 The project deploys Apache Airflow for automating and orchestrating Sparkify Data pipeline, it creates custom operators
 to perform tasks such as creating tables, staging the data from S3 bucket `s3://udacity-dend/song-data` and 
-`s3://udacity-dend/song-data` and load them to `s3://xzbits-sparkify-data-lake/`. By deploying AWS EMR service to run 
-ETL pipeline and building data lake on `s3://xzbits-sparkify-data-lake/`, filling the data warehouse, and running checks 
-on the data as the final steps. It takes care all the imports and provides five empty operators that need to be 
-implemented into functional pieces of a data pipeline.
+`s3://udacity-dend/log-data`, filling the data warehouse, and running checks on the data as the final steps. 
+
+The Python script repository takes care all the imports and provides five empty operators that need to be implemented 
+into functional pieces of a data pipeline.
 
 ## Database design in STAR schema
 ![Sparkify_star_schema.PNG](project3_star_schema.png "sparkifydb STAR schema")
