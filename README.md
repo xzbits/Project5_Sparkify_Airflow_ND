@@ -24,7 +24,7 @@ into functional pieces of a data pipeline.
 ![Sparkify_star_schema.PNG](project3_star_schema.png "sparkifydb STAR schema")
 
 ## Sparkify DAG
-![DAG_operator.PNG](legend.png "DAG Operator")
+![DAG_operator.PNG](legend.PNG "DAG Operator")
 ![Sparkify_DAG.PNG](dag_project5.png "Sparkify DAG")
 
 ## AWS services architecture
