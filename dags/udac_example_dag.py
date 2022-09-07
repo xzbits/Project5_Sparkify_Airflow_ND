@@ -19,6 +19,23 @@ s3_key_log = 'log_data'
 s3_key_song = 'song_data'
 json_path = 's3://udacity-dend/log_json_path.json'
 
+# Data quality check
+dq_check = [
+    # Check NULL values in Primary Key
+    {'check_sql': 'SELECT COUNT(*) FROM public.songplays WHERE playid IS NULL', 'expected_result': '== 0'},
+    {'check_sql': 'SELECT COUNT(*) FROM public.users WHERE userid IS NULL', 'expected_result': '== 0'},
+    {'check_sql': 'SELECT COUNT(*) FROM public.artists WHERE artistid IS NULL', 'expected_result': '== 0'},
+    {'check_sql': 'SELECT COUNT(*) FROM public.time WHERE start_time IS NULL', 'expected_result': '== 0'},
+    {'check_sql': 'SELECT COUNT(*) FROM public.songs WHERE songid IS NULL', 'expected_result': '== 0'},
+
+    # Check Empty tables
+    {'check_sql': 'SELECT COUNT(*) FROM public.songplays', 'expected_result': '> 0'},
+    {'check_sql': 'SELECT COUNT(*) FROM public.users', 'expected_result': '> 0'},
+    {'check_sql': 'SELECT COUNT(*) FROM public.artists', 'expected_result': '> 0'},
+    {'check_sql': 'SELECT COUNT(*) FROM public.time', 'expected_result': '> 0'},
+    {'check_sql': 'SELECT COUNT(*) FROM public.songs', 'expected_result': '> 0'}
+]
+
 default_args = {
     'owner': 'udacity',
     'start_date': datetime(2019, 1, 12),
@@ -36,13 +53,6 @@ dag = DAG('udac_example_dag',
 
 start_operator = DummyOperator(task_id='Begin_execution',  dag=dag)
 
-create_tables = CreateTablesOperator(
-    task_id='Create_tables_task',
-    dag=dag,
-    redshift_conn_id=redshift_conn_id,
-    create_table_sql_file=os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
-                                       'create_tables.sql')
-)
 
 stage_events_to_redshift = StageToRedshiftOperator(
     task_id='Stage_events',
@@ -106,14 +116,15 @@ load_time_dimension_table = LoadDimensionOperator(
 run_quality_checks = DataQualityOperator(
     task_id='Run_data_quality_checks',
     dag=dag,
-    redshift_conn_id=redshift_conn_id)
+    redshift_conn_id=redshift_conn_id,
+    dq_check_queries=dq_check
+)
 
 end_operator = DummyOperator(task_id='Stop_execution',  dag=dag)
 
-start_operator >> create_tables
 
-create_tables >> stage_events_to_redshift
-create_tables >> stage_songs_to_redshift
+start_operator >> stage_events_to_redshift
+start_operator >> stage_songs_to_redshift
 
 stage_events_to_redshift >> load_songplays_table
 stage_songs_to_redshift >> load_songplays_table
