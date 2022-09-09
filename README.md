@@ -46,7 +46,7 @@ Go to `Admin` --> `Connections`
 * Password: Enter your `Secret access key` from the IAM User credentials you downloaded earlier. Once you've entered 
 these values, select Save.
 
-### Step 2.2: Create new connection to cluster Postgre database
+### Step 2.2: Create new connection to cluster Postgres database
 * Conn Id: Enter `redshift`.
 * Conn Type: Enter `Postgres`.
 * Host: Enter the endpoint of your Redshift cluster, excluding the port and schema name at the end. You can find this by 
