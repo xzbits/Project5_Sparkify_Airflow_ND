@@ -33,7 +33,7 @@ into functional pieces of a data pipeline.
 # Running the Data Pipeline
 ## Step 1: Clone the Python scripts to the machine contains all the available Airflow configurations 
 ```commandline
-git clone https://<YOUR_PERSONAL_ACCESS_TOKEN>>@github.com/xzbits/project4_Data_Lake_DE_ND.git
+git clone https://<YOUR_PERSONAL_ACCESS_TOKEN>>@github.com/xzbits/Project5_Sparkify_Airflow_ND.git
 ```
 
 ## Step 2: Start the Airflow UI
